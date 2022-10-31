@@ -24,7 +24,7 @@ export default function Home () {
         return <h1>Loading Articles...</h1>
     }
     else return(
-        <ul className="bg-slate-100 mx-auto px-4 sm:px-6 lg:px-8">
+        <ul className="bg-slate-100 mx-auto px-4 sm:px-6 lg:px-8 grid">
            {displayedArticles.map(({ article_id, title, author, topic, body, comment_count, votes }, index) => {
             return (
                 <li key={index} >
