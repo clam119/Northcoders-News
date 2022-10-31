@@ -8,8 +8,8 @@ import './App.css';
 import Home from './components/Home';
 
 export default function App() {
-  const [username, setUsername] = useState('Not Logged In');
-  const [usersRealName, setUsersRealName]= useState('Not Logged In');
+  const [username, setUsername] = useState('grumpy19');
+  const [usersRealName, setUsersRealName]= useState('Tom Tickle');
   const [usersList, setUsersList] = useState([]);
 
   useEffect(() => {
