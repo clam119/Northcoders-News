@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Topics from './components/Topics';
+import ArticlesByTopic from './components/ArticlesByTopic';
 import * as API from './utils/api';
 import './App.css';
 import Home from './components/Home';
@@ -28,6 +29,7 @@ export default function App() {
             <Routes>
               <Route path= "/" element={<Home/>}></Route>
               <Route path= "/topics" element={<Topics/>}> </Route>
+              <Route path= "/topics/:slug" element={<ArticlesByTopic/>}> </Route>
               {/* <Route path="/users" element={<Users/>}></Route> */}
             </Routes>
           <Footer />
