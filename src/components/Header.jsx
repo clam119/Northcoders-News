@@ -16,7 +16,7 @@ export default function Header () {
     const handleClick = (e) => {
         setIsOpen(!isOpen);
         if(isOpen) {
-            return ref.current.className="";
+            return ref.current.className="md:hidden lg:hidden xl:hidden";
         }
         else {
             return ref.current.className="sm:hidden mp:hidden"
