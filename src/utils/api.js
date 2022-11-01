@@ -66,3 +66,9 @@ export const getUserByUsername = async (username) => {
     const { data } = await newsApi.get(`/users/${username}`);
     return data;
 }
+
+// Topics-Related HTTP Requests
+export const getTopics = async () => {
+    const { data } = await newsApi.get('/topics');
+    return data;
+}
