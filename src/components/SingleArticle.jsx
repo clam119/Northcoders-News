@@ -7,6 +7,7 @@ export default function SingleArticle() {
     const { article_id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
     const { title, topic, body, author, votes, comment_count } = article;
 
@@ -19,7 +20,9 @@ export default function SingleArticle() {
             setIsLoading(false);
         })
         .catch((err) => {
+            setIsLoading(false);
             setError(err);
+            setHasError(true)
         })
     }, [article_id])
 
@@ -29,7 +32,7 @@ export default function SingleArticle() {
         )
     }
 
-    if(error) {
+    if(hasError) {
         return (
             <ErrorPage/>
         )
