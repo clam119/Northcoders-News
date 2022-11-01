@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function SingleArticle ({title, author, topic, body, comment_count, article_id, votes}) {
+export default function ArticleCard ({title, author, topic, body, comment_count, article_id, votes}) {
     const limitedBodyCount = body.slice(0, 250);
     return (
         <div className="max-w-5xl px-6 py-16 mx-auto auto-cols-auto">
@@ -10,7 +10,7 @@ export default function SingleArticle ({title, author, topic, body, comment_coun
                     <h2 className=" mt-4 text-lg text-centre text-black-600 mp:text-base">Topic: #{topic}</h2>
                 </div>
                 <div className="dark:text-gray-100">
-                    <p className="text-left mp:text-sm">{`${limitedBodyCount}...`}</p>
+                    <p className="text-left md:text-base mp:text-sm">{`${limitedBodyCount}...`}</p>
                     <Link to={`/articles/${article_id}`}> <p className="text-black-500 hover:border-blue-700 hover:text-blue-700 text-right mp:text-sm">Read More</p> </Link>
                 </div>
                 <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center sm:flex-row sm:items-center dark:text-gray-400">
