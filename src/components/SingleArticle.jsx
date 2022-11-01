@@ -15,7 +15,6 @@ export default function SingleArticle() {
         setIsLoading(true);
         API.getArticleByID(article_id)
         .then((articleData) => {
-            console.log(articleData, 'successful fetch!')
             setArticle(articleData);
             setIsLoading(false);
         })
