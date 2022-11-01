@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 export default function TopicCard ({ slug }) {
-    console.log(slug, '<< topic card')
     return (
         <li key={slug}>
             <div className="max-w-5xl px-6 py-16 mx-auto auto-cols-auto">
