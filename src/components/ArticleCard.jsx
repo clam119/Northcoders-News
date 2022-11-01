@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function SingleArticle ({title, author, topic, body, comment_count, article_id, votes}) {
+export default function ArticleCard ({title, author, topic, body, comment_count, article_id, votes}) {
     const limitedBodyCount = body.slice(0, 250);
     return (
         <div className="max-w-5xl px-6 py-16 mx-auto auto-cols-auto">
