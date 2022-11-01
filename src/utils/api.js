@@ -33,9 +33,9 @@ export const getArticleByID = async (article_id) => {
     return data;
 }
 
-export const patchArticleByID = async (article_id) => {
+export const patchArticleByID = async (article_id, num) => {
     const { data } = await newsApi.patch(`/articles/${article_id}`, {
-        inc_votes: 1
+        inc_votes: num
     });
     return data;
 }
