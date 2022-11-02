@@ -15,24 +15,25 @@ export default function SingleArticle() {
     const [article, setArticle] = useState([]);
     const { title, topic, body, author, votes } = article;
 
-    const handleVoteClick = (num) => {
-        API.patchArticleByID(article_id, num)
-        .then(() => {
-            setArticle((currentArticle) => {
-                let reloadedArticle = {...currentArticle};
-                reloadedArticle.votes+= num;
-                return reloadedArticle;
-            })
-        })
-        .catch((err) => {
-            setArticle((currentArticle) => {
-                let reloadedArticle = {...currentArticle};
-                reloadedArticle.votes-= num;
-                return reloadedArticle;
-            })
-            setError(err);
-            setHasError(true);
-        })
+    const handleVoteClick = (event) => {
+        console.log(event);
+        // API.patchArticleByID(article_id)
+        // .then(() => {
+        //     setArticle((currentArticle) => {
+        //         let reloadedArticle = {...currentArticle};
+        //         reloadedArticle.votes+= 1;
+        //         return reloadedArticle;
+        //     })
+        // })
+        // .catch((err) => {
+        //     setArticle((currentArticle) => {
+        //         let reloadedArticle = {...currentArticle};
+        //         reloadedArticle.votes-= 1;
+        //         return reloadedArticle;
+        //     })
+        //     setError(err);
+        //     setHasError(true);
+        // })
     }
 
     useEffect(() => {
@@ -93,10 +94,10 @@ export default function SingleArticle() {
                     </div>
                     <div className="flex items-center md:space-x-2">
                         <p className="text-right flex-shrink-0 mt-3 text-sm md:mt-0 text-black-500 mp:text-sm">Upvotes: {votes}</p>
-                            <button onClick={() => handleVoteClick(1)}>
+                            <button onClick={handleVoteClick}>
                                 <AiFillLike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The like button"/>
                             </button>
-                            <button onClick={() => handleVoteClick(-1)}>
+                            <button onClick={handleVoteClick}>
                                 <AiFillDislike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The dislike button"/>
                             </button>
                     </div>
