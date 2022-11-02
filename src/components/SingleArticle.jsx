@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import ErrorPage from "./ErrorPage";
@@ -10,6 +11,17 @@ export default function SingleArticle() {
     const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
     const { title, topic, body, author, votes, comment_count } = article;
+
+    const handleVoteClick = (num) => {
+        API.patchArticleByID(article_id, num)
+        .then(() => {
+            setArticle((currentArticle) => {
+                let reloadedArticle = {...currentArticle};
+                reloadedArticle.votes+= num;
+                return reloadedArticle;
+            })
+        })
+    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -54,6 +66,12 @@ export default function SingleArticle() {
                     </div>
                     <div className="flex items-center md:space-x-2">
                         <p className="text-right flex-shrink-0 mt-3 text-sm md:mt-0 text-black-500 mp:text-sm">Upvotes: {votes}</p>
+                            <button onClick={() => handleVoteClick(1)}>
+                                <AiFillLike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The like button"/>
+                            </button>
+                            <button onClick={() => handleVoteClick(-1)}>
+                                <AiFillDislike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The dislike button"/>
+                            </button>
                     </div>
                 </div>
             </article>
