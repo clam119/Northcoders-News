@@ -2,15 +2,18 @@ import { useState, useEffect } from "react";
 import { AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
+import CommentsDisplay from "./CommentsDisplay";
 import ErrorPage from "./ErrorPage";
 
 export default function SingleArticle() {
     const { article_id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [comments, setComments] = useState([]);
+    const [commentsLoading, setCommentsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
-    const { title, topic, body, author, votes, comment_count } = article;
+    const { title, topic, body, author, votes } = article;
 
     const handleVoteClick = (num) => {
         API.patchArticleByID(article_id, num)
@@ -20,6 +23,15 @@ export default function SingleArticle() {
                 reloadedArticle.votes+= num;
                 return reloadedArticle;
             })
+        })
+        .catch((err) => {
+            setArticle((currentArticle) => {
+                let reloadedArticle = {...currentArticle};
+                reloadedArticle.votes-= num;
+                return reloadedArticle;
+            })
+            setError(err);
+            setHasError(true);
         })
     }
 
@@ -37,9 +49,23 @@ export default function SingleArticle() {
         })
     }, [article_id])
 
-    if(isLoading) {
+    useEffect(() => {
+        setCommentsLoading(true);
+        API.getCommentsByArticleID(article_id)
+        .then((articleComments) => {
+            setComments(articleComments);
+            setCommentsLoading(false);
+        })
+        .catch((err) => {
+            setCommentsLoading(false);
+            setError(err);
+            setHasError(true);
+        })
+    }, [article_id])
+
+    if(isLoading & commentsLoading) {
         return (
-            <h1>Loading Article...</h1>
+            <h1>Loading Article and ...</h1>
         )
     }
 
@@ -51,6 +77,7 @@ export default function SingleArticle() {
 
     else {
         return (
+        <>
         <div className="max-w-5xl px-6 py-16 mx-auto auto-cols-auto">
             <article className=" px-8 py-8 space-y-8 dark:bg-gray-800 dark:text-gray-50 bg-white rounded ">
                 <div className="space-y-6" >
@@ -76,6 +103,8 @@ export default function SingleArticle() {
                 </div>
             </article>
         </div>
+        <CommentsDisplay comments={comments} setArticle={setArticle} />
+        </>
         )
     }
 }
