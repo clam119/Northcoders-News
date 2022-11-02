@@ -56,6 +56,13 @@ export const postCommentByArticleID = async (article_id, username, body) => {
     return data;
 }
 
+export const patchCommentByID = async (comment_id, num) => {
+    const { data } = await newsApi.patch(`/comments/${comment_id}`, {
+        inc_votes: num
+    })
+    return data;
+}
+
 // Users-Related HTTP Requests
 export const getUsers = async () => {
     const { data } = await newsApi.get('/users');
