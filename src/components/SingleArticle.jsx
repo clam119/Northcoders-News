@@ -103,7 +103,7 @@ export default function SingleArticle() {
                 </div>
             </article>
         </div>
-        <CommentsDisplay comments={comments} setArticle={setArticle} />
+        <CommentsDisplay comments={comments} />
         </>
         )
     }
