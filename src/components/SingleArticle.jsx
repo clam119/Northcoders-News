@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import CommentsDisplay from "./CommentsDisplay";
 import ErrorPage from "./ErrorPage";
+import Votes from "./Votes";
 
 export default function SingleArticle() {
     const { article_id } = useParams();
@@ -14,26 +15,6 @@ export default function SingleArticle() {
     const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
     const { title, topic, body, author, votes } = article;
-
-    const handleVoteClick = (num) => {
-        API.patchArticleByID(article_id, num)
-        .then(() => {
-            setArticle((currentArticle) => {
-                let reloadedArticle = {...currentArticle};
-                reloadedArticle.votes+= num;
-                return reloadedArticle;
-            })
-        })
-        .catch((err) => {
-            setArticle((currentArticle) => {
-                let reloadedArticle = {...currentArticle};
-                reloadedArticle.votes-= num;
-                return reloadedArticle;
-            })
-            setError(err);
-            setHasError(true);
-        })
-    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -92,13 +73,7 @@ export default function SingleArticle() {
                         <Link to={`/users/${author}`}> <p className="text-sm text-black-500 mp:text-sm">Posted By: {author}</p> </Link>
                     </div>
                     <div className="flex items-center md:space-x-2">
-                        <p className="text-right flex-shrink-0 mt-3 text-sm md:mt-0 text-black-500 mp:text-sm">Upvotes: {votes}</p>
-                            <button onClick={() => handleVoteClick(1)}>
-                                <AiFillLike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The like button"/>
-                            </button>
-                            <button onClick={() => handleVoteClick(-1)}>
-                                <AiFillDislike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The dislike button"/>
-                            </button>
+                        <Votes article_id={article_id} votes={votes} />
                     </div>
                 </div>
             </article>
