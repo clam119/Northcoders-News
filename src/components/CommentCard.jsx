@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
-export default function CommentCard( { body, author, votes, created_at }) {
+import Votes from "./Votes"
+
+export default function CommentCard( { comment_id, body, author, votes, created_at }) {
     
     return(
         <div className="max-w-fill px-6 py-16 mx-auto auto-cols-auto bg-slate-50">
@@ -16,8 +18,9 @@ export default function CommentCard( { body, author, votes, created_at }) {
                         </div>
                             
                         <div className="flex items-center md:space-x-2">
-                            <p className="text-right flex-shrink-0 mt-3 text-sm md:mt-0 text-black-500 mp:text-sm">Upvotes: {votes}</p> 
+                            <Votes comment_id={comment_id} votes={votes} />
                         </div>
+                        
                     </div>
             </article>
 	    <div>
