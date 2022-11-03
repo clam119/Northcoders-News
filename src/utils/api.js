@@ -18,16 +18,13 @@ export const getArticles = async (topic, sort_by, order, limit, p) => {
     return data;
 }
 
-export const getSortedArticles = async (sort_by, order, limit, p) => {
+export const getSortedArticles = async (sort_by, order) => {
     const { data } = await newsApi.get('/articles', {
         params: {
             sort_by,
             order,
-            limit,
-            p
         }
     });
-    console.log(data, '<< in the util func')
     return data;
 }
 
