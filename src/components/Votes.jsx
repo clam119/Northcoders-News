@@ -13,23 +13,7 @@ export default function Votes ({ article_id, comment_id, votes}) {
             if(changeVotes === 0) {
                 setChangeVotes(1)
                 API.patchArticleByID(article_id, 1)
-                .then((data) => {
-                    console.log(data);
-                })
-            }
-            else if (changeVotes === -1) {
-                setChangeVotes(0);
-                API.patchArticleByID(article_id, 1)
-            }
-        }
-      
-        //if passed in a comment
-        if(comment_id) {
-            if(changeVotes === 0) {
-                setChangeVotes(1)
-                API.patchCommentByID(comment_id, 1)
-                .then((commentData) => {
-                    console.log(commentData)
+                .then(() => {
                     setError(null);
                 })
                 .catch((err) => {
@@ -38,9 +22,39 @@ export default function Votes ({ article_id, comment_id, votes}) {
             }
             else if (changeVotes === -1) {
                 setChangeVotes(0);
+                API.patchArticleByID(article_id, 1)
+                .then(() => {
+                    setError(null);
+                })
+                .catch((err) => {
+                    setError(err);
+                })
+            }
+        }
+      
+        //if passed in a comment
+        if(comment_id) {
+            if(changeVotes === 0) {
+                setChangeVotes(1)
                 API.patchCommentByID(comment_id, 1)
-                .then((commentData) => {
-                    console.log(commentData)
+                .then(() => {
+                    setError(null);
+                })
+                .catch((err) => {
+                    setError(err);
+                })
+                .catch((err) => {
+                    setError(err);
+                })
+            }
+            else if (changeVotes === -1) {
+                setChangeVotes(0);
+                API.patchCommentByID(comment_id, 1)
+                .then(() => {
+                    setError(null);
+                })
+                .catch((err) => {
+                    setError(err);
                 })
             }
         }
