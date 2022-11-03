@@ -2,6 +2,8 @@ import ArticleCard from "./ArticleCard";
 import ErrorPage from './ErrorPage';
 import * as API from '../utils/api';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from "react-router-dom";
+import SortBar from "./SortBar";
 
 export default function Home () {
 
@@ -9,9 +11,7 @@ export default function Home () {
     const [displayedArticles, setDisplayedArticles] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [sort, setSort] = useState('created_at');
-    const [order, setOrder] = useState('DESC');
-    const [topic, setTopic] = useState('');
+    const [currentURL, setCurrentURL] = useSearchParams();
 
     useEffect(() => {
         setIsLoading(true);
@@ -23,7 +23,7 @@ export default function Home () {
         .catch((err) => {
             setError(err);
         })
-    }, [sort, order, topic])
+    }, [])
 
     if(isLoading) {
         return <h1>Loading Articles...</h1>
@@ -34,7 +34,12 @@ export default function Home () {
     }
     
     else return(
+        <>
+        
         <ul className="bg-slate-100 mx-auto px-4 sm:px-6 lg:px-8 grid">
+
+           <SortBar currentURL={currentURL} setCurrentURL={setCurrentURL} setDisplayedArticles={setDisplayedArticles} />
+
            {displayedArticles.map(({ article_id, title, author, topic, body, comment_count, votes }, index) => {
             return (
                 <li key={index} >
@@ -43,5 +48,6 @@ export default function Home () {
             )
            })}
         </ul>
+        </>
     )
 }

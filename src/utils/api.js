@@ -18,6 +18,19 @@ export const getArticles = async (topic, sort_by, order, limit, p) => {
     return data;
 }
 
+export const getSortedArticles = async (sort_by, order, limit, p) => {
+    const { data } = await newsApi.get('/articles', {
+        params: {
+            sort_by,
+            order,
+            limit,
+            p
+        }
+    });
+    console.log(data, '<< in the util func')
+    return data;
+}
+
 export const postArticle = async (author, title, body, topic) => {
     const { data } = await newsApi.post('/articles', {
         author,
@@ -51,8 +64,8 @@ export const getCommentsByArticleID = async (article_id) => {
     return data;
 }
 
-export const postCommentByArticleID = async (article_id, body, username) => {
-    const { data } = await newsApi.post(`/articles/${article_id}/comments/`, {username: username, body: body} );
+export const postCommentByArticleID = async (article_id, username, body) => {
+    const { data } = await newsApi.post(`/articles/${article_id}`, {username, body});
     return data;
 }
 
