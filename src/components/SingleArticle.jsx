@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import CommentsDisplay from "./CommentsDisplay";
 import ErrorPage from "./ErrorPage";
+import NewComment from "./NewComment";
 import Votes from "./Votes";
 
 export default function SingleArticle() {
@@ -77,7 +78,8 @@ export default function SingleArticle() {
                 </div>
             </article>
         </div>
-        <CommentsDisplay comments={comments} />
+     
+        <CommentsDisplay article_id={article_id} comments={comments} setComments={setComments} />
         </>
         )
     }
