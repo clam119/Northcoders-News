@@ -14,7 +14,7 @@ export default function SingleArticle() {
     const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
     const { title, topic, body, author, votes } = article;
-
+    
     useEffect(() => {
         setIsLoading(true);
         API.getArticleByID(article_id)
