@@ -22,7 +22,7 @@ export default function Topics () {
     else {
         return (
             <ul className="bg-slate-100 mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 sm:grid-cols-1">
-                {topics.map(({ slug }) => { return <TopicCard slug={slug} />})}
+                {topics.map(({ slug }, index) => { return <TopicCard key={index} slug={slug} />})}
            </ul>
         )
     }
