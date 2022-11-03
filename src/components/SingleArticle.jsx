@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { AiFillLike, AiFillDislike } from 'react-icons/ai'
 import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import CommentsDisplay from "./CommentsDisplay";
