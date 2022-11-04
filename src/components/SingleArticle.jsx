@@ -8,8 +8,6 @@ import Votes from "./Votes";
 export default function SingleArticle() {
     const { article_id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
-    const [comments, setComments] = useState([]);
-    const [commentsLoading, setCommentsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hasError, setHasError] = useState(false);
     const [article, setArticle] = useState([]);
@@ -29,23 +27,9 @@ export default function SingleArticle() {
         })
     }, [article_id])
 
-    // useEffect(() => {
-    //     setCommentsLoading(true);
-    //     API.getCommentsByArticleID(article_id)
-    //     .then((articleComments) => {
-    //         setComments(articleComments);
-    //         setCommentsLoading(false);
-    //     })
-    //     .catch((err) => {
-    //         setCommentsLoading(false);
-    //         setError(err);
-    //         setHasError(true);
-    //     })
-    // }, [article_id])
-
-    if(isLoading & commentsLoading) {
+    if(isLoading) {
         return (
-            <h1>Loading Article and ...</h1>
+            <h1>Loading Article...</h1>
         )
     }
 
