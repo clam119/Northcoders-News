@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Votes from "./Votes"
 import * as API from '../utils/api';
 
-export default function CommentCard( { comment_id, body, author, votes, created_at, setComments}) {
+export default function CommentCard( { comment_id: id, body, author, votes, created_at, removeComment}) {
     const { username } = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false)
@@ -12,15 +12,15 @@ export default function CommentCard( { comment_id, body, author, votes, created_
 
     const handleDelete = () => {
         setIsLoading(true);
-        API.deleteCommentByID(comment_id)
+        API.deleteCommentByID(id)
         .then(() => {
             setIsDeleted(true);
             setIsLoading(false);
+            removeComment(id)
         })
         .catch((err) => {
             setError(err);
         })
-        
     }
 
    if(isLoading) {
@@ -45,7 +45,7 @@ export default function CommentCard( { comment_id, body, author, votes, created_
                         </div>
                             
                         <div className="flex items-center md:space-x-2">
-                            <Votes comment_id={comment_id} votes={votes} />
+                            <Votes comment_id={id} votes={votes} />
                             <button aria-label="Delete Comment" onClick={handleDelete} className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 sm:max-w-lg" hidden={author !== username ? true : false }>Delete</button>
                         </div>
                         
