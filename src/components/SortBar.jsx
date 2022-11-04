@@ -5,6 +5,7 @@ import * as API from '../utils/api';
 export default function SortBar({ setDisplayedArticles }) {
     const [sortOption, setSortOption] = useState('created_at');
     const [orderOption, setOrderOption]= useState('desc');
+    // eslint-disable-next-line no-unused-vars
     const [currentUrl, setCurrentUrl] = useSearchParams();
 
     const handleSort = (event) => {
@@ -26,6 +27,7 @@ export default function SortBar({ setDisplayedArticles }) {
         .then((sortedArticles) => {
             setDisplayedArticles(sortedArticles);
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortOption])
     
     useEffect(() => {
@@ -34,6 +36,7 @@ export default function SortBar({ setDisplayedArticles }) {
             setDisplayedArticles(orderedArticles);
             
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderOption])
 
     return(
