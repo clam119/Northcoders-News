@@ -1,6 +1,6 @@
 {
   "name": "northcoders-news",
-  "homepage": "https://clam119.github.io/Northcoders-News"
+  "homepage": "https://clam119.github.io/Northcoders-News",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
