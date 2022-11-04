@@ -2,12 +2,10 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import * as API from '../utils/api';
 
-export default function SortBar({ currentURL, setCurrentURL, setDisplayedArticles }) {
+export default function SortBar({ setDisplayedArticles }) {
     const [sortOption, setSortOption] = useState('created_at');
-    const [orderOption, setOrderOption]= useState(null);
+    const [orderOption, setOrderOption]= useState('desc');
     const [currentUrl, setCurrentUrl] = useSearchParams();
-    const [sortActive, setSortActive] = useState(false);
-    const [orderActive, setOrderActive] = useState(false);
 
     const handleSort = (event) => {
         setSortOption(event.target.value)
@@ -17,9 +15,12 @@ export default function SortBar({ currentURL, setCurrentURL, setDisplayedArticle
     const handleOrder = (event) => {
         setOrderOption(event.target.value);
         setCurrentUrl((currUrl) => {
-            return currUrl += event.target.value;
+           let localCurrUrlCopy = currUrl;
+           localCurrUrlCopy.set('order', []);
+           return localCurrUrlCopy += event.target.value;
         })
     }
+
     useEffect(() => {
         API.getSortedArticles(sortOption)
         .then((sortedArticles) => {
@@ -31,7 +32,7 @@ export default function SortBar({ currentURL, setCurrentURL, setDisplayedArticle
         API.getSortedArticles(sortOption, orderOption)
         .then((orderedArticles) => {
             setDisplayedArticles(orderedArticles);
-            setOrderActive(false);
+            
         })
     }, [orderOption])
 
@@ -47,7 +48,7 @@ export default function SortBar({ currentURL, setCurrentURL, setDisplayedArticle
         </label>
 
         <label htmlFor="order">Order: 
-            <select onChange={handleOrder} value={"sort_by"} name="order" className="max-w-full mx-auto bg-red text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="order-dropdown">
+            <select onChange={handleOrder} value={"order"} name="order" className="max-w-full mx-auto bg-red text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="order-dropdown">
                 <option className="text-base text-center block px-4 py-2" value="">Select An Option</option>
                 <option className="text-base text-center block px-4 py-2" value="asc">Asc</option>
                 <option className="text-base text-center block px-4 py-2" value="desc">Desc</option>
