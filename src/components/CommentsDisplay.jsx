@@ -30,7 +30,7 @@ export default function CommentsDisplay({ article_id })  {
 
     <ul className="max-w-5xl bg-white mx-auto px-0 sm:px-6 lg:px-8 grid">
         <NewComment article_id={article_id} setComments={setComments} />
-            {comments.map(({ comment_id, author, body, article_id, votes, created_at }, index) => {
+            {comments.map(({ comment_id, author, body, article_id, votes, created_at }) => {
             const convertedCreationDate = created_at.slice(0, 10)
             return (
                 <li key={comment_id} >
