@@ -110,11 +110,11 @@ export default function Votes ({ article_id, comment_id, votes}) {
     return (
         <>
         <p className="text-right flex-shrink-0 mt-3 text-sm md:mt-0 text-black-500 mp:text-sm">Upvotes: {votes += changeVotes}</p> 
-        <button disabled={changeVotes === 1 ? true : false } onClick={ handleUpvote }>
-            <AiFillLike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The like button"/>
+        <button disabled={changeVotes === 1 ? true : false } onClick={ handleUpvote } aria-label="Upvote" >
+            <AiFillLike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0"/>
         </button>
-        <button disabled={changeVotes === -1 ? true : false } onClick={ handleDownvote }>
-            <AiFillDislike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0" alt="The dislike button"/>
+        <button disabled={changeVotes === -1 ? true : false } onClick={ handleDownvote } aria-label="Downvote" >
+            <AiFillDislike className="md:w-8 md:h-8 mp:w-6 mp:h-6 mx-auto hover:border-rose-200 hover:fill-rose-200  fill-rose-0"/>
         </button>
         </>
     )
