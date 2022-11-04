@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import CommentsDisplay from "./CommentsDisplay";
 import ErrorPage from "./ErrorPage";
-import NewComment from "./NewComment";
 import Votes from "./Votes";
 
 export default function SingleArticle() {
