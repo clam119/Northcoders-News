@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserContext } from './components/context/UserContext';
 import { useState, useEffect } from 'react';
 import Header from './components/Header';
@@ -32,6 +32,7 @@ export default function App() {
               <Route path= "/articles/:article_id" element={<SingleArticle />}></Route>
               <Route path= "/topics" element={<Topics/>}> </Route>
               <Route path= "/topics/:slug" element={<ArticlesByTopic/>}> </Route>
+              <Route path="*" element={<Navigate to="/"  />} /> 
               {/* <Route path="/users" element={<Users/>}></Route> */}
             </Routes>
           <Footer />
