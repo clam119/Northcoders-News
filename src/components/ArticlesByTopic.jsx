@@ -10,7 +10,8 @@ export default function ArticlesByTopic () {
     
     const [displayedArticles, setDisplayedArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
+    const [hasError, setHasError] = useState(false)
 
     useEffect(() => {
         setIsLoading(true);
@@ -18,9 +19,12 @@ export default function ArticlesByTopic () {
         .then((articlesData) => {
             setDisplayedArticles(articlesData);
             setIsLoading(false);
+            setHasError(false);
         })
         .catch((err) => {
-            setError(true);
+            setIsLoading(false);
+            setHasError(true);
+            setError(err);
         })
     }, [slug])
 
@@ -28,9 +32,12 @@ export default function ArticlesByTopic () {
         return <h1>Loading Articles...</h1>
     } 
 
-    if (error) {
-        return <ErrorPage/>
+    if(hasError) {
+        return (
+            <ErrorPage/>
+        )
     }
+
 
     if (displayedArticles.length === 0) {
         return <NoContentPage/>
