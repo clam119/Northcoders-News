@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import * as API from '../utils/api';
 import CommentsDisplay from "./CommentsDisplay";
 import ErrorPage from "./ErrorPage";
-import NewComment from "./NewComment";
 import Votes from "./Votes";
 
 export default function SingleArticle() {
@@ -30,19 +29,19 @@ export default function SingleArticle() {
         })
     }, [article_id])
 
-    useEffect(() => {
-        setCommentsLoading(true);
-        API.getCommentsByArticleID(article_id)
-        .then((articleComments) => {
-            setComments(articleComments);
-            setCommentsLoading(false);
-        })
-        .catch((err) => {
-            setCommentsLoading(false);
-            setError(err);
-            setHasError(true);
-        })
-    }, [article_id])
+    // useEffect(() => {
+    //     setCommentsLoading(true);
+    //     API.getCommentsByArticleID(article_id)
+    //     .then((articleComments) => {
+    //         setComments(articleComments);
+    //         setCommentsLoading(false);
+    //     })
+    //     .catch((err) => {
+    //         setCommentsLoading(false);
+    //         setError(err);
+    //         setHasError(true);
+    //     })
+    // }, [article_id])
 
     if(isLoading & commentsLoading) {
         return (
@@ -79,7 +78,7 @@ export default function SingleArticle() {
             </article>
         </div>
      
-        <CommentsDisplay article_id={article_id} comments={comments} setComments={setComments} />
+        <CommentsDisplay article_id={article_id} />
         </>
         )
     }
