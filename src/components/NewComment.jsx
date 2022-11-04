@@ -10,7 +10,7 @@ export default function NewComment({article_id, setComments}){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        API.postCommentByArticleID(article_id, body, username)
+        API.postCommentByArticleID(article_id, username, body)
         .then((postedComment) => {
             setComments((currentComments) => {
                const copyOfCurrent = [...currentComments];
