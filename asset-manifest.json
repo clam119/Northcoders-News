@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Northcoders-News/static/css/main.a1f72f12.css",
-    "main.js": "/Northcoders-News/static/js/main.e1bb5590.js",
+    "main.css": "/Northcoders-News/static/css/main.4fe6f577.css",
+    "main.js": "/Northcoders-News/static/js/main.8b5dbbb7.js",
     "index.html": "/Northcoders-News/index.html",
-    "main.a1f72f12.css.map": "/Northcoders-News/static/css/main.a1f72f12.css.map",
-    "main.e1bb5590.js.map": "/Northcoders-News/static/js/main.e1bb5590.js.map"
+    "main.4fe6f577.css.map": "/Northcoders-News/static/css/main.4fe6f577.css.map",
+    "main.8b5dbbb7.js.map": "/Northcoders-News/static/js/main.8b5dbbb7.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1f72f12.css",
-    "static/js/main.e1bb5590.js"
+    "static/css/main.4fe6f577.css",
+    "static/js/main.8b5dbbb7.js"
   ]
 }
