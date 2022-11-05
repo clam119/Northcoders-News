@@ -18,11 +18,12 @@ export const getArticles = async (topic, sort_by, order, limit, p) => {
     return data;
 }
 
-export const getSortedArticles = async (sort_by, order) => {
+export const getSortedArticles = async (sort_by, order, limit) => {
     const { data } = await newsApi.get('/articles', {
         params: {
             sort_by,
             order,
+            limit
         }
     });
     return data;
