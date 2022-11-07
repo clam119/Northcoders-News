@@ -4,13 +4,16 @@ import { UserContext } from './context/UserContext';
 
 export default function Header () {
 
-    const {  username, setUsername, usersList, setUsersList, usersRealName, setUsersRealName } = useContext(UserContext);
+    const {  username, setUsername, usersList, setUsersList, usersRealName, setUsersRealName, avatar, setAvatar } = useContext(UserContext);
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef(null);
 
     useEffect(() => {
         const mobileMenu = ref;
-    }, [])
+        localStorage.setItem("username", JSON.stringify(username))
+        localStorage.setItem("usersRealName", JSON.stringify(usersRealName))
+        localStorage.setItem("avatar", JSON.stringify(avatar))
+    }, [username])
     
 
     const handleClick = (e) => {
@@ -21,6 +24,22 @@ export default function Header () {
         else {
             return ref.current.className="sm:hidden mp:hidden"
         }
+    }
+
+    const handleChange = (e) => {
+        setUsername(e.target.value);
+        setUsersRealName(() => {
+            const filteredRealName = usersList.filter((user) => {
+                return user.username === e.target.value;
+            })
+            return filteredRealName[0].name;
+        });
+        setAvatar(() => {
+            const filteredAvatar = usersList.filter((user) => {
+                return user.username === e.target.value;
+            })
+            return filteredAvatar[0].avatar_url;
+        })
     }
 
     return (
@@ -36,17 +55,27 @@ export default function Header () {
                     {/* <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" --> */}
                     <Link to="/" className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"> Home </Link>
                     <Link to="/topics" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"> Topics </Link>
-                    <Link to="/users" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"> Users </Link>
+                     <p className="border-transparent text-gray-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Current User: {username} </p>
                     </div>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                <p className="border-transparent text-gray-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Current Logged In As: {username} </p>
+                
+                {/* Users Dropdown Menu */}
+                <div className="grid sm:grid-cols-3 mp:grid-cols-3- max-w-7xl px-4 py-4 mx-auto ">
+                    <label className="grid-auto justify-center" htmlFor="sort_by">Users: 
+                        <select  onChange={handleChange} name="sort_by" className="max-w-full mx-auto bg-red text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="sort-dropdown">
+                            <option disabled className="text-base text-center block px-4 py-2" value="">Select An Option</option>
+                            {usersList.map((user) =>  (<option key={user.username} className="text-base text-center block px-4 py-2" value={ user.username }>{ user.username }</option> ))}
+                        </select>
+                    </label>
+                </div>
+
                     {/* <!-- Profile Picture --> */}
                     <div className="ml-3 relative">
                     <div>
                         <button type="button" className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src="https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953" alt={`${username}'s avatar profile.`}/>
+                        <img className="h-8 w-8 rounded-full" src={avatar} alt={`${username}'s avatar profile.`}/>
                         </button>
                     </div>
                    
@@ -87,12 +116,20 @@ export default function Header () {
                 {/* <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" --> */}
                 <Link to="/" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">HOME</Link>
                 <Link to="/topics" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">TOPICS</Link>
-                <Link to="/users" className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">USERS</Link>
+                </div>
+                {/* Users Drodown Menu Mobile */}
+                <div className="grid sm:grid-cols-3 mp:grid-cols-3- max-w-7xl px-4 py-4 mx-auto ">
+                    <label className="grid-auto justify-center" htmlFor="sort_by">Users: 
+                        <select  onChange={handleChange} name="sort_by" className="max-w-full mx-auto bg-red text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="sort-dropdown">
+                            <option disabled className="text-base text-center block px-4 py-2" value="">Select An Option</option>
+                            {usersList.map((user) =>  (<option key={user.username} className="text-base text-center block px-4 py-2" value={ user.username }>{ user.username }</option> ))}
+                        </select>
+                    </label>
                 </div>
                 <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-4">
                     <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src="https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953" alt={`${username}'s avatar profile.`}/>
+                    <img className="h-10 w-10 rounded-full" src={avatar} alt={`${username}'s avatar profile.`}/>
                     </div>
                     <div className="ml-3">
                     <div className="text-base font-medium text-gray-800">{username}</div>
