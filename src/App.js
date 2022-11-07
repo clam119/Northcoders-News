@@ -11,9 +11,25 @@ import './App.css';
 import Home from './components/Home';
 
 export default function App() {
-  const [username, setUsername] = useState('grumpy19');
-  const [usersRealName, setUsersRealName]= useState('Tom Tickle');
+  const [username, setUsername] = useState(() => {
+    const savedUsername = localStorage.getItem("username");
+    const initialValue = JSON.parse(savedUsername);
+    return initialValue || "Not Logged In";
+  })
+
+  const [usersRealName, setUsersRealName] = useState(() => {
+    const savedUsersRealname = localStorage.getItem("usersRealName");
+    const initialValue = JSON.parse(savedUsersRealname);
+    return initialValue || "Not Logged In";
+  })
+
+  
   const [usersList, setUsersList] = useState([]);
+  const [avatar, setAvatar] = useState(() => {
+    const savedAvatar = localStorage.getItem("avatar");
+    const initialValue = JSON.parse(savedAvatar);
+    return initialValue || "https://i.ibb.co/MfFhp0z/800px-Question-mark-black-svg.png"
+  })
 
   useEffect(() => {
     API.getUsers()
@@ -23,7 +39,7 @@ export default function App() {
   }, [])
 
   return (
-    <UserContext.Provider value={{ username, setUsername, usersList, setUsersList, usersRealName, setUsersRealName }}>
+    <UserContext.Provider value={{ username, setUsername, usersList, setUsersList, usersRealName, setUsersRealName, avatar, setAvatar}}>
       <div className="App">
         <BrowserRouter>
           <Header />
@@ -33,7 +49,6 @@ export default function App() {
               <Route path= "/topics" element={<Topics/>}> </Route>
               <Route path= "/topics/:slug" element={<ArticlesByTopic/>}> </Route>
               <Route path="*" element={<Navigate to="/"  />} /> 
-              {/* <Route path="/users" element={<Users/>}></Route> */}
             </Routes>
           <Footer />
         </BrowserRouter>
