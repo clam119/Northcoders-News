@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const newsApi = axios.create({
-    baseURL: "https://northcoders-news-api-production.up.railway.app/api"
+    baseURL: "https://northcoders-news-api.onrender.com/api"
 })
 
 //Articles-Related HTTP Requests
